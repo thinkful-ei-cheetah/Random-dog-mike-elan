@@ -22,25 +22,18 @@ $(document).ready(function() {
 
   function returnRandomDogJSON(breed) {
     fetch(`https://dog.ceo/api/breed/${userBreed.breed}/images/random`)
-      .then(response => response.json())
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(alert('Your breed has returned no results. Please try again with a different breed.'));
+      })
       .then(responseJson => {
         $('.results-img').replaceWith(
           `<img src="${responseJson.message}" class = "results-img">`
         );
-      })
-      .catch(error => alert('Something went wrong. Please try again'));
-  }
-
-  function generateDogImages(responseJson) {
-    // access responseJson.message 
-    
+      });
   }
 
   getUserInput();
-
-
-  // return the json objects to the console
-
-
-
 });
