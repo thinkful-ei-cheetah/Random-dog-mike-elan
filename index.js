@@ -5,16 +5,20 @@
 // we need to store/parse this input into a number variable
 $(document).ready(function() {
   const userNumber = {
-    number: 0
+    number: 3
   };
   
   function getUserInput() {
     $('.js-input-form').submit(function(event) {
       event.preventDefault();
       const num = $('.num-input').val();
-      userNumber.number = num;
-      console.log(userNumber.number);
-      returnRandomDogJSON(userNumber.number);
+      if (num > 50) {
+        throw new Error('Please enter a number between 1-50.')
+      } else {
+        userNumber.number = num;
+        console.log(userNumber.number);
+        returnRandomDogJSON(userNumber.number);
+      }
     });
   }
 
