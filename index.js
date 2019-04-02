@@ -12,8 +12,8 @@ $(document).ready(function() {
     $('.js-input-form').submit(function(event) {
       event.preventDefault();
       const num = $('.num-input').val();
-      if (num > 50) {
-        throw new Error('Please enter a number between 1-50.')
+      if (num > 50 || num < 0) {
+        throw new Error('Please enter a number between 1-50.');
       } else {
         userNumber.number = num;
         console.log(userNumber.number);
@@ -27,8 +27,17 @@ $(document).ready(function() {
   function returnRandomDogJSON(num) {
     fetch(`https://dog.ceo/api/breeds/image/random/${userNumber.number}`)
       .then(response => response.json())
-      .then(responseJson => console.log(responseJson))
+      .then(responseJson => generateDogImages(responseJson))
       .catch(error => alert('Something went wrong. Please try again'));
+  }
+
+  function generateDogImages(responseJson) {
+    // access responseJson.message 
+    for (let i = 0; i < responseJson.message.length; i++) {
+      $('.container').html(
+        `<img src="${responseJson.message[i]}" class = "results-img">`
+      );
+    }
   }
 
   getUserInput();
