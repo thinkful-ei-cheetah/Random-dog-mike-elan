@@ -34,7 +34,7 @@ $(document).ready(function() {
   function generateDogImages(responseJson) {
     // access responseJson.message 
     for (let i = 0; i < responseJson.message.length; i++) {
-      $('.container').html(
+      $('.container').append(
         `<img src="${responseJson.message[i]}" class = "results-img">`
       );
     }
